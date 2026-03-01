@@ -1,3 +1,4 @@
+chat application
 
 Feature	Description
 Real-time Messaging	    -Messages appear instantly across all connected clients
@@ -23,7 +24,7 @@ Moment.js - Time formatting
 
 Font Awesome - Icons
 
-
+live dwmo https://sandilenkosi12.github.io/chap-app/
 
 📦 Installation
 Prerequisites
@@ -35,7 +36,7 @@ Basic understanding of JavaScript
 
 Step 1: Clone the Repository
 bash
-git clone https://github.com/your-username/chat-app.git
+git clone https://github.com/sandilenkosi12/chat-app.git
 cd chat-app
 Step 2: Set Up Firebase
 Go to Firebase Console
