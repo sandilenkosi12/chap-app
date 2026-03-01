@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatFlow | Sandile Nkosi</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Emoji Mart -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-mart@latest/css/emoji-mart.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Auth Screen -->
+        <div id="authScreen" class="auth-screen">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <i class="fas fa-comments"></i>
+                    <h1>ChatFlow</h1>
+                    <p class="subtitle">by Sandile Nkosi</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="loginTab">Login</button>
+                    <button class="auth-tab" id="registerTab">Register</button>
+                </div>
+                
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </form>
+                
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label>Display Name</label>
+                        <input type="text" id="regName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="regEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="regConfirm" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> Register
+                    </button>
+                </form>
+                
+                <!-- Demo Accounts -->
+                <div class="demo-accounts">
+                    <p><strong>Demo Accounts:</strong></p>
+                    <p>👤 user1@demo.com / password123</p>
+                    <p>👤 user2@demo.com / password123</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Chat Screen (Initially Hidden) -->
+        <div id="chatScreen" class="chat-screen" style="display: none;">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="avatar" id="userAvatar">
+                        <img src="" alt="User" id="avatarImg">
+                        <span id="userInitials"></span>
+                    </div>
+                    <div class="user-info">
+                        <h3 id="displayName">Loading...</h3>
+                        <span class="status online"><i class="fas fa-circle"></i> Online</span>
+                    </div>
+                    <button id="logoutBtn" class="icon-btn" title="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+                
+                <div class="rooms-section">
+                    <h4>Chat Rooms</h4>
+                    <div class="rooms-list" id="roomsList">
+                        <div class="room-item active" data-room="general">
+                            <i class="fas fa-hashtag"></i> general
+                        </div>
+                        <div class="room-item" data-room="tech">
+                            <i class="fas fa-code"></i> tech
+                        </div>
+                        <div class="room-item" data-room="random">
+                            <i class="fas fa-random"></i> random
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="online-users">
+                    <h4>Online <span id="onlineCount">0</span></h4>
+                    <div id="usersList">
+                        <!-- Online users will appear here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Area -->
+            <div class="chat-area">
+                <div class="chat-header">
+                    <div class="room-info">
+                        <h2 id="currentRoom"># general</h2>
+                        <span id="typingIndicator"></span>
+                    </div>
+                </div>
+                
+                <div class="messages-container" id="messagesContainer">
+                    <!-- Messages will appear here -->
+                </div>
+                
+                <div class="message-input-container">
+                    <button id="emojiBtn" class="icon-btn">
+                        <i class="far fa-smile"></i>
+                    </button>
+                    <input type="text" id="messageInput" placeholder="Type a message...">
+                    <button id="sendBtn" class="btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 Sandile Nkosi | 060 523 9905 | abelnkosi2000@gmail.com</p>
+        </footer>
+    </div>
+    
+    <!-- Emoji Mart -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/emoji-mart.js"></script>
+    <script src="auth.js"></script>
+    <script src="chat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
