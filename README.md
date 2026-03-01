@@ -24,7 +24,7 @@ Moment.js - Time formatting
 
 Font Awesome - Icons
 
-live dwmo https://sandilenkosi12.github.io/chap-app/
+live demo https://sandilenkosi12.github.io/chap-app/
 
 📦 Installation
 Prerequisites
